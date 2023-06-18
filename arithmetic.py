@@ -12,9 +12,9 @@ import numpy as np
 
 def divisors(n):
 	"""
-          Arguments : n a strictly positive integer
-          Return : the list containing the divisors of n
-          """
+	Arguments : n a strictly positive integer
+	Return : the list containing the divisors of n
+	"""
     l = []
     for i in range(1,n+1):
         if n % i == 0:
@@ -23,10 +23,10 @@ def divisors(n):
 
 
 def prime(n):
-          """
-          Arguments : n a strictly positive integer
-          Return : True if n is a prime number and False otherwise
-          """
+	"""
+	Arguments : n a strictly positive integer
+	Return : True if n is a prime number and False otherwise
+	"""
     if len(divisors(n))==2 :
         return True
     else :
