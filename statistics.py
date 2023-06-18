@@ -61,17 +61,12 @@ class Series:
         #Variable name
         self.name = nX
 
-    #save(fileName):####################
-    #
-    #Arguments :
-    #fileName -- the backup file name
-    #
-    #Return :
-    #Empty
-    #
-    #Method :
-    #Save the quantitative indicators about the series in the file
-
+"""
+save
+Arguments : fileName is the backup file nam
+Return : empty
+Process : save the quantitative indicators about the series in the file
+"""
     def save(self, fileName):
         file = open(fileName, "a")
         file.write("Univariate statistical study :")
@@ -94,19 +89,12 @@ class Series:
         file.write("\nInterquartile gap DeltaQ = " + str(self.deltaQ))
         file.close()
 
-    #histogram(nbrClasses, title, fName):####################
-    #
-    #Arguments :
-    #nbrClasses -- the classes number for the histogram
-    #title -- the graph title
-    #fName -- the backup file name
-    #
-    #Return :
-    #Empty
-    #
-    #Method :
-    #Print and save the histogram of the distribution
-
+"""
+histogram
+Arguments : nbrClasses is the classes number for the histogram, title is the graph title and fName is the backup file name
+Return : empty
+Process : Print and save the histogram of the distribution
+"""
     def histogram(self, nbrClasses, title,fName):
         x = self.series
         plt.title(title)
@@ -117,19 +105,12 @@ class Series:
         plt.savefig(fName)
         plt.show()
 
-    #box(title, fName):####################
-    #
-    #Arguments :
-    #
-    #title -- the graph title
-    #fName -- the backup file name
-    #
-    #Return :
-    #Empty
-    #
-    #Method :
-    #Print and save the boed diagramm of the distribution
-
+"""
+box
+Arguments : title is the graph title and fName is the backup file name
+Return : empty
+Process : print and save the box diagramm of the distribution
+"""
     def box(self,title, fName):
         x=self.series
         plt.boxplot(x,vert = 0, medianprops = {"color": "red", "linewidth" : 2.5},
@@ -217,17 +198,12 @@ class BiSeries:
         #Name of Y
         self.nameY = nY
 
-    #display(fName):####################
-    #
-    #Arguments :
-    #fName -- the backup file name
-    #
-    #Return :
-    #Empty
-    #
-    #Method :
-    #Print and save the scatterplot of the distribution
-
+"""
+display
+Arguments : fName is the backup file name
+Return : empty
+Process : print and save the scatterplot of the distribution
+"""
     def display(self, fName):
         X = self.seriesX
         Y = self.seriesY
@@ -244,17 +220,12 @@ class BiSeries:
         plt.savefig(fName)
         plt.show()
 
-    #line(fName):####################
-    #
-    #Arguments :
-    #fName -- the backup file name
-    #
-    #Return :
-    #Empty
-    #
-    #Method :
-    #Print and save the scatterplot of the distribution and the regression line
-
+"""
+line
+Arguments : fileName is the backup file nam
+Return : empty
+Process : print and save the scatterplot of the distribution and the regression line
+"""
     def line(self, fName):
         X = np.linspace(self.minX - self.scopeX/10, self.maxX + self.scopeX/10, 150)
         Y = np.linspace(self.minY - self.scopeY/10, self.maxY + self.scopeY/10, 150)
