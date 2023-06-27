@@ -11,7 +11,7 @@ import numpy as np
           ################################
 
 class Series:
-    #Constructor : list represents the one dimensional series
+    #Constructor : list represents the one dimensional series and nX is the name of the variable
     def __init__(self, list, nX):
         #Series
         self.series = list
@@ -61,12 +61,10 @@ class Series:
         #Variable name
         self.name = nX
 
-"""
-save
-Arguments : fileName is the backup file nam
-Return : empty
-Process : save the quantitative indicators about the series in the file
-"""
+########## save ##########
+# Arguments : fileName is the backup file name
+# Return : empty
+# Process : save the quantitative indicators about the series in the file
     def save(self, fileName):
         file = open(fileName, "a")
         file.write("Univariate statistical study :")
@@ -89,12 +87,10 @@ Process : save the quantitative indicators about the series in the file
         file.write("\nInterquartile gap DeltaQ = " + str(self.deltaQ))
         file.close()
 
-"""
-histogram
-Arguments : nbrClasses is the classes number for the histogram, title is the graph title and fName is the backup file name
-Return : empty
-Process : Print and save the histogram of the distribution
-"""
+########## histogram ##########
+# Arguments : nbrClasses is the classes number for the histogram, title is the graph title and fName is the backup file name
+# Return : empty
+# Process : Print and save the histogram of the distribution
     def histogram(self, nbrClasses, title,fName):
         x = self.series
         plt.title(title)
@@ -105,12 +101,10 @@ Process : Print and save the histogram of the distribution
         plt.savefig(fName)
         plt.show()
 
-"""
-box
-Arguments : title is the graph title and fName is the backup file name
-Return : empty
-Process : print and save the box diagramm of the distribution
-"""
+########## box #########
+# Arguments : title is the graph title and fName is the backup file name
+# Return : empty
+# Process : print and save the box diagramm of the distribution
     def box(self,title, fName):
         x=self.series
         plt.boxplot(x,vert = 0, medianprops = {"color": "red", "linewidth" : 2.5},
@@ -135,6 +129,7 @@ Process : print and save the box diagramm of the distribution
 
 class BiSeries:
     #Constructor : (list1,list2) represents the bidimensional series
+    #studyName is the name of the study and (nX,nY) are the names of the variables
     def __init__(self, listX, listY, studyName, nX, nY):
         #Number of data
         self.size = len(listX)
@@ -198,12 +193,10 @@ class BiSeries:
         #Name of Y
         self.nameY = nY
 
-"""
-display
-Arguments : fName is the backup file name
-Return : empty
-Process : print and save the scatterplot of the distribution
-"""
+########## display ##########
+# Arguments : fName is the backup file name
+# Return : empty
+# Process : print and save the scatterplot of the distribution
     def display(self, fName):
         X = self.seriesX
         Y = self.seriesY
@@ -220,12 +213,10 @@ Process : print and save the scatterplot of the distribution
         plt.savefig(fName)
         plt.show()
 
-"""
-line
-Arguments : fileName is the backup file nam
-Return : empty
-Process : print and save the scatterplot of the distribution and the regression line
-"""
+########## line ##########
+# Arguments : fileName is the backup file nam
+# Return : empty
+# Process : print and save the scatterplot of the distribution and the regression line
     def line(self, fName):
         X = np.linspace(self.minX - self.scopeX/10, self.maxX + self.scopeX/10, 150)
         Y = np.linspace(self.minY - self.scopeY/10, self.maxY + self.scopeY/10, 150)
@@ -236,7 +227,7 @@ Process : print and save the scatterplot of the distribution and the regression 
         #plt.legend()
         plt.xlim([ self.minX - self.scopeX/10, self.maxX + self.scopeX/10 ])
         plt.ylim([ self.minY - self.scopeY/10, self.maxY + self.scopeY/10 ])
-        plt.title("Affine fit :" + self.sname)
+        plt.title("Affine fit : " + self.sname)
         plt.xlabel(self.nameX)
         plt.ylabel(self.nameY)
         plt.grid(alpha =.6, linestyle =':')
