@@ -34,7 +34,7 @@ class Series:
         #Maximum
         self.max = self.orderSeries[self.size-1]
         #Scope
-        self.scope = self.max - self.min
+        self.range = self.max - self.min
         #Median
         if self.size % 2 == 1:
             self.med = self.orderSeries[(self.size-1)//2]
@@ -80,7 +80,7 @@ class Series:
         file.write("\nStandard deviation sigma = " + str(self.stdDev))
         file.write("\nMinimum min = " + str(self.min))
         file.write("\nMaximum max = " + str(self.max))
-        file.write("\nScope e = " + str(self.scope))
+        file.write("\nRange e = " + str(self.range))
         file.write("\nMedian M = " + str(self.med))
         file.write("\nFirst quartile Q1 = " + str(self.quartile1))
         file.write("\nThird quartile Q3 = " + str(self.quartile3))
@@ -121,6 +121,43 @@ class Series:
         plt.savefig(fName)
         plt.show()
 
+########## absFrequency ##########
+# Arguments : value is a real number
+# Return : the absolute frequency of value in the series
+# Process : empty
+    def absFrequency(self, value):
+        l = list(self.series)
+        return l.count(value)
+
+########## relFrequency ##########
+# Arguments : value is a real number
+# Return : the relative frequency of value in the series
+# Process : empty
+    def relFrequency(self,value):
+        return self.absFrequency(value)/self.size
+
+########## absCumulFrequency ##########
+# Arguments : value is a real number
+# Return : the absolute cumulative frequency of value in the series
+# Process : empty
+    def absCumulFrequency(self, value):
+        k=0
+        freq = 0
+        while self.orderSeries[k]<= value :
+            freq += self.absFrequency(self.orderSeries[k])
+            if self.orderSeries[k] == self.max :
+                break
+            k += self.absFrequency(self.orderSeries[k])
+        return freq
+
+########## relCumulFrequency ##########
+# Arguments : value is a real number
+# Return : the relative cumulative frequency of value in the series
+# Process : empty
+    def relCumulFrequency(self,value):
+        return self.absCumulFrequency(value)/self.size
+
+
           ################################
           ###                          ###
           #  Basic bivariate statistics  #
@@ -154,7 +191,7 @@ class BiSeries:
         #Maximum of X
         self.maxX = self.orderSeriesX[self.size-1]
         #The scope of X
-        self.scopeX = self.maxX - self.minX
+        self.rangeX = self.maxX - self.minX
         #Sum of the elements for Y
         self.sumY = sum(listY)
         #Mean of Y
@@ -172,7 +209,7 @@ class BiSeries:
         #Maximum of Y
         self.maxY = self.orderSeriesY[self.size-1]
         #Scope of Y
-        self.scopeY = self.maxY - self.minY
+        self.rangeY = self.maxY - self.minY
         #Cross term sum
         s = 0
         for k in range(self.size):
@@ -201,8 +238,8 @@ class BiSeries:
         X = self.seriesX
         Y = self.seriesY
         fig = plt.figure(figsize = (10, 8))
-        plt.xlim([self.minX - self.scopeX/10, self.maxX + self.scopeX/10])
-        plt.ylim([self.minY - self.scopeY/10, self.maxY + self.scopeY/10])
+        plt.xlim([self.minX - self.rangeX/10, self.maxX + self.rangeX/10])
+        plt.ylim([self.minY - self.rangeY/10, self.maxY + self.rangeY/10])
         plt.title(self.sname)
         plt.xlabel(self.nameX)
         plt.ylabel(self.nameY)
@@ -218,15 +255,15 @@ class BiSeries:
 # Return : empty
 # Process : print and save the scatterplot of the distribution and the regression line
     def line(self, fName):
-        X = np.linspace(self.minX - self.scopeX/10, self.maxX + self.scopeX/10, 150)
-        Y = np.linspace(self.minY - self.scopeY/10, self.maxY + self.scopeY/10, 150)
+        X = np.linspace(self.minX - self.rangeX/10, self.maxX + self.rangeX/10, 150)
+        Y = np.linspace(self.minY - self.rangeY/10, self.maxY + self.rangeY/10, 150)
         for k in range(0,150):
             Y[k] = self.theta1*X[k] + self.theta0
         fig = plt.figure(figsize = (10, 8))
         plt.plot(X, Y, "r-" ,linewidth=2.0)
         #plt.legend()
-        plt.xlim([ self.minX - self.scopeX/10, self.maxX + self.scopeX/10 ])
-        plt.ylim([ self.minY - self.scopeY/10, self.maxY + self.scopeY/10 ])
+        plt.xlim([ self.minX - self.rangeX/10, self.maxX + self.rangeX/10 ])
+        plt.ylim([ self.minY - self.rangeY/10, self.maxY + self.rangeY/10 ])
         plt.title("Affine fit : " + self.sname)
         plt.xlabel(self.nameX)
         plt.ylabel(self.nameY)
